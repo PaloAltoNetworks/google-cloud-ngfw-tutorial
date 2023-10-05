@@ -239,7 +239,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
     ```
 
     > :bulb: **Learning Objective** <br> 
-    > A firewall endpoints is a organizational resource that inspect intercepted traffic with Palo Alto Networks Threat Prevention technologies. 
+    > A firewall endpoint is a organizational resource that inspect intercepted traffic with Palo Alto Networks Threat Prevention technologies. 
     <br>
 
 6. Associate the endpoint with the VPC network.  The association can take up to 30 minutes to complete. 
@@ -435,21 +435,14 @@ View the actions taken by the Firewall Plus service directly within the Google C
 
 To delete the created resources, delete your Google Cloud deployment project.  If you cannot delete your deployment project, follow the steps below to delete the cloud resources created in this tutorial.
 
-1. If you chose the **Option 2. Deploy with gcloud**, clone the repository in Cloud Shell.
+1. If you chose the **Step-by-Step Deployment**, clone the repository in Cloud Shell.
 
     ```
     git clone https://github.com/PaloAltoNetworks/google-cloud-firewall-plus-tutorial
     cd google-cloud-firewall-plus-tutorial
     ```
 
-2. Make the `ips_delete.sh` script executable. 
-
-    ```
-    chmod +x ips_delete.sh
-    ```
-
-
-3. Execute the script to delete the resources created in this tutorial.
+2. Execute the script to delete the resources created in this tutorial.
 
     ```
     ./ips_delete
