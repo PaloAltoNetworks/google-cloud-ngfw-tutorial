@@ -110,8 +110,8 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
 1. In Cloud Shell, clone the repository and change directories. 
 
     ```
-    git clone https://github.com/PaloAltoNetworks/google-cloud-firewall-plus
-    cd google-cloud-firewall-plus
+    git clone https://github.com/PaloAltoNetworks/google-cloud-firewall-plus-tutorial
+    cd google-cloud-firewall-plus-tutorial
     ```
 
 2.  Execute the script to create the environment. 
