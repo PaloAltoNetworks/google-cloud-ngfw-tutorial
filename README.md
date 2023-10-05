@@ -322,10 +322,10 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
     <br>
 
 9. (Optional) Review the created resources:
-    - [Firewall Endpoint](https://console.cloud.google.com/net-security/firewall-endpoints)
-    - [Firewall Endpoint VPC Network Association]()
+    - [Firewall Endpoint](https://console.cloud.google.com/net-security/firewall-endpoints/)
+    - [Firewall Endpoint VPC Network Association](https://console.cloud.google.com/networking/networks/list)
     - [Security Profile](https://console.cloud.google.com/net-security/security-profiles/profiles)
-    - [Network Firewall Policy]()
+    - [Network Firewall Policy](https://console.cloud.google.com/net-security/firewall-manager/firewall-policies/)
     <br>
 
 
