@@ -43,7 +43,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
 > This tutorial assumes you are using Cloud Shell to provision all of the resources.
 ---
 
-1. Open [Google Cloud Shell](shell.cloud.google.com) <img src="https://storage.googleapis.com/cloud-training/images/devshell.png" alt="cloudshell.png" /> and enable the required APIs.
+1. Open [Google Cloud Shell](https://shell.cloud.google.com) <img src="https://storage.googleapis.com/cloud-training/images/devshell.png" alt="cloudshell.png" /> and enable the required APIs.
 
     ```
     gcloud services enable compute.googleapis.com
