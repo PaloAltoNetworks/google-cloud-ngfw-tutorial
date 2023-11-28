@@ -91,9 +91,10 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
     export PREFIX=<em><b>panw</b></em>
     </pre>
 
-    > [!NOTE]
-    > `prefix` is a string of characters that is prepended to the name of each created resource.
-    <br>
+---
+> [!NOTE]
+> `prefix` is a string of characters that is prepended to the name of each created resource.
+---
 
 8. Select a deployment option.  Both options deploy identical environments. 
     * **[Option 1. Scripted Deployment](#scripted-deployment)**
