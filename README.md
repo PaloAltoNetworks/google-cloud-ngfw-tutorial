@@ -409,7 +409,7 @@ Rerun the previous threats again to see the actions taken by Cloud Firewall Plus
 3. Attempt to download a sudo-malicious file from the internet. 
 
     ```
-    wget www.eicar.org/download/eicar.com.txt --tries 1 --timeout 2
+    wget www.eicar.eu/eicar.com.txt --tries 1 --timeout 2
     ```
     > :bulb: **Objective** <br>
     > The simulated threats from the `attacker` should fail.  This is because the Firewall Plus service is preventing the exploits from reaching the `victim` machine.
