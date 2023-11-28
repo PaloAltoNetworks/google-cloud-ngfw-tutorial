@@ -352,7 +352,7 @@ Simulate several threats between the `attacker` and `victim` virtual machines wi
 3. Attempt to download a sudo malicious file from the internet. 
 
     ```
-    wget www.eicar.org/download/eicar.com.txt --tries 1 --timeout 2
+    wget www.eicar.eu/eicar.com.txt --tries 1 --timeout 2
     ```
 
     > :bulb: **Objective** <br>
