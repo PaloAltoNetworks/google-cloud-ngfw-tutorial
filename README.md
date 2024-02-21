@@ -291,7 +291,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
         --enable-logging \
         --layer4-configs all \
         --src-ip-ranges=0.0.0.0/0 \
-        --dest-ip-ranges=0.0.0.0/0\
+        --dest-ip-ranges=0.0.0.0/0 \
         --project=$PROJECT_ID
 
     gcloud compute network-firewall-policies rules create 11 \
