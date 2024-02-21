@@ -113,7 +113,7 @@ gcloud beta network-security security-profile-groups create $PREFIX-profile-grou
 # Create firewall endpoint. 
 gcloud beta network-security firewall-endpoints create $PREFIX-endpoint \
     --zone=$ZONE \
-    --project=$PROJECT_ID \
+    --billing-project=$PROJECT_ID \
     --organization=$ORG_ID \
     --quiet
 
