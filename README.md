@@ -114,7 +114,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
 1. In Cloud Shell, clone the repository and change directories. 
 
     ```
-    git clone https://github.com/PaloAltoNetworks/google-cloud-ngfw-enterprise-tutorial
+    git clone https://github.com/PaloAltoNetworks/google-cloud-ngfw-tutorial
     cd google-cloud-ngfw-enterprise-tutorial
     ```
 
