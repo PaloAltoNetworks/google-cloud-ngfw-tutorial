@@ -115,7 +115,7 @@ Prepare for deployment by enabling the required APIs, retrieving the deployment 
 
     ```
     git clone https://github.com/PaloAltoNetworks/google-cloud-ngfw-tutorial
-    cd google-cloud-ngfw-enterprise-tutorial
+    cd google-cloud-ngfw-tutorial
     ```
 
 2.  Execute the script to create the environment. 
@@ -441,8 +441,8 @@ To delete the created resources, delete your Google Cloud deployment project.  I
 1. If you chose the **Step-by-Step Deployment**, clone the repository in Cloud Shell.
 
     ```
-    git clone https://github.com/PaloAltoNetworks/google-cloud-ngfw-enterprise-tutorial
-    cd google-cloud-ngfw-enterprise-tutorial
+    git clone https://github.com/PaloAltoNetworks/google-cloud-ngfw-tutorial
+    cd google-cloud-ngfw-tutorial
     ```
 
 2. Execute the script to delete the resources created in this tutorial.
