@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 
 # ----------------------------------------------------------------------------------------------
 # Set default values for the deployment region, zone, and naming prefix
@@ -21,26 +21,27 @@ if [ -z "$ORG_ID" ]; then
   exit 1  # Exit the script with a non-zero status code to indicate failure
 fi
 
+export PROJECT_NUM=$(gcloud projects describe $PROJECT_ID --format="get(projectNumber)")
 # ----------------------------------------------------------------------------------------------
 # Delete network firewall policy, rules, and network association.
 # ----------------------------------------------------------------------------------------------
 
 gcloud compute network-firewall-policies associations delete \
-   --firewall-policy=$PREFIX-global-policy \
-   --name=$PREFIX-global-policy-association \
+   --name=$PREFIX-policy-association \
+   --firewall-policy=$PREFIX-policy \
    --global-firewall-policy
 
 gcloud compute network-firewall-policies rules delete 10 \
-   --firewall-policy=$PREFIX-global-policy \
+   --firewall-policy=$PREFIX-policy \
    --global-firewall-policy \
    --project=$PROJECT_ID
 
 gcloud compute network-firewall-policies rules delete 11 \
-   --firewall-policy=$PREFIX-global-policy \
+   --firewall-policy=$PREFIX-policy \
    --global-firewall-policy \
    --project=$PROJECT_ID
 
-gcloud compute network-firewall-policies delete $PREFIX-global-policy \
+gcloud compute network-firewall-policies delete $PREFIX-policy \
    --global \
    --project=$PROJECT_ID
 
@@ -90,16 +91,17 @@ while true; do
 done
 
 
+
 # ----------------------------------------------------------------------------------------------
-# Delete workload VMs
+# Delete VMs
 # ----------------------------------------------------------------------------------------------
 
-gcloud compute instances delete $PREFIX-attacker \
+gcloud compute instances delete $PREFIX-client-vm \
    --zone=$ZONE \
    --project=$PROJECT_ID \
    --quiet
 
-gcloud compute instances delete $PREFIX-victim \
+gcloud compute instances delete $PREFIX-web-vm \
    --zone=$ZONE \
    --project=$PROJECT_ID \
    --quiet
@@ -108,12 +110,16 @@ gcloud compute instances delete $PREFIX-victim \
 # ----------------------------------------------------------------------------------------------
 # Delete VPC network
 # ----------------------------------------------------------------------------------------------
+gcloud compute routers nats delete $PREFIX-nat \
+    --router=$PREFIX-router \
+    --region=$REGION \
+    --quiet 
 
-gcloud compute firewall-rules delete $PREFIX-all-ingress \
-   --project=$PROJECT_ID \
-   --quiet
+gcloud compute routers delete $PREFIX-router \
+    --region=$REGION \
+    --quiet
 
-gcloud compute networks subnets delete $PREFIX-subnet \
+gcloud compute networks subnets delete $PREFIX-$REGION-subnet \
    --region=$REGION \
    --project=$PROJECT_ID \
    --quiet

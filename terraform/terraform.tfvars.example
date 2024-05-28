@@ -1,0 +1,6 @@
+org_id          = "null"
+project_id      = "null"
+billing_project = "null"
+prefix          = "panw"
+region          = "us-central1"
+zone            = "us-central1-a"
