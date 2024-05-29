@@ -63,9 +63,10 @@ Enable the required APIs, retrieve the deployment files, and configure the envir
     export PROJECT_ID=<b><i>YOUR_PROJECT_ID</i></b>
     export BILLING_ID=<b><i>YOUR_BILLING_PROJECT_ID</i></b></pre>
 
-3. Set environment variables for your deployment region, zone, and naming prefix.
+3. Set environment variables for your organization ID, deployment region, zone, and naming prefix.
 
     ```
+    export ORG_ID=$(gcloud projects describe $PROJECT_ID --format=json | jq -r '.parent.id')
     export REGION=us-central1
     export ZONE=us-central1-a
     export PREFIX=panw
